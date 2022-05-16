@@ -3,16 +3,19 @@ import Form from '../components/Form';
 import Layout from '../components/Layout';
 import Table from '../components/Table';
 import User from '../core/User';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { getUsers, addUser, deleteUser, updateUser } from '../backend/firebase';
 
 export default function Home() {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const [user, setUser] = useState<User>(User.empty());
-	const users: User[] = [
-		new User('Flavio', 45, '1'),
-		new User('Pedro', 35, '2'),
-		new User('Carlos', 3, '3'),
-	];
+	const [users, setUsers] = useState<User[]>([]);
+
+	const userCheck = getUsers().then(res => res);
+
+	useEffect(() => {
+		getUsers().then(res => setUsers(res));
+	}, [userCheck]);
 
 	const userSelected = (nowUser: User) => {
 		setUser(nowUser);
@@ -20,7 +23,7 @@ export default function Home() {
 	};
 
 	const userDeleted = (nowUser: User) => {
-		console.log(nowUser);
+		deleteUser(nowUser.id);
 	};
 
 	const handleSubmit = (type: string, nowUser?: User, e?: FormEvent) => {
@@ -28,7 +31,11 @@ export default function Home() {
 		setIsEditing(false);
 
 		if (type === 'submit') {
-			console.log(nowUser);
+			if (nowUser.id) {
+				updateUser(nowUser.name, nowUser.age, nowUser.id);
+			} else {
+				addUser(nowUser.name, nowUser.age);
+			}
 		}
 	};
 

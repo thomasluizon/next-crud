@@ -25,14 +25,14 @@ const Table = (props: TableProps) => {
 							key={user.id}
 							className={index % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}
 						>
-							<td className="text-left p-4">{user.id}</td>
-							<td className="text-left p-4">{user.name}</td>
-							<td className="text-left p-4">{user.age}</td>
-							<td className="p-4 flex justify-center gap-4">
+							<td className="text-left p-4 break-all">{user.id}</td>
+							<td className="text-left p-4 break-all">{user.name}</td>
+							<td className="text-left p-4 break-all">{user.age}</td>
+							<td className="p-4 flex justify-center gap-4 items-center h-[100px]">
 								{props.userSelected ? (
 									<button
 										onClick={() => props.userSelected(user)}
-										className="flex justify-center items-center text-green-600 rounded-full hover:bg-purple-50 p-2"
+										className="flex justify-center text-green-600 rounded-full hover:bg-purple-50 p-2"
 									>
 										{EditIcon}
 									</button>
