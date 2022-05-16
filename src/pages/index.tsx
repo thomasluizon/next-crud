@@ -11,11 +11,13 @@ export default function Home() {
 	const [user, setUser] = useState<User>(User.empty());
 	const [users, setUsers] = useState<User[]>([]);
 
-	const userCheck = getUsers().then(res => res);
-
 	useEffect(() => {
+		getAll();
+	}, []);
+
+	function getAll() {
 		getUsers().then(res => setUsers(res));
-	}, [userCheck]);
+	}
 
 	const userSelected = (nowUser: User) => {
 		setUser(nowUser);
@@ -36,6 +38,8 @@ export default function Home() {
 			} else {
 				addUser(nowUser.name, nowUser.age);
 			}
+
+			getAll();
 		}
 	};
 
