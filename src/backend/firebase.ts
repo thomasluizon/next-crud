@@ -26,9 +26,9 @@ const userColletionRef = collection(db, 'users');
 export const getUsers = async () => {
 	const data = await getDocs(userColletionRef);
 
-	return data.docs.map(doc => {
-		const properties = doc.data();
-		return new User(properties.name, properties.age, doc.id);
+	return data.docs.map(collec => {
+		const properties = collec.data();
+		return new User(properties.name, properties.age, collec.id);
 	});
 };
 
