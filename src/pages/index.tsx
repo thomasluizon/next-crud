@@ -26,6 +26,7 @@ export default function Home() {
 
 	const userDeleted = (nowUser: User) => {
 		deleteUser(nowUser.id);
+		getAll();
 	};
 
 	const handleSubmit = (type: string, nowUser?: User, e?: FormEvent) => {
